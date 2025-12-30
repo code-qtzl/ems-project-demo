@@ -1,0 +1,112 @@
+[
+	{
+		"id": "1",
+		"name": "Walter White",
+		"designation": "Software Engineer",
+		"email": "walter.white@example.com",
+		"contact": "+1-555-123-4567",
+		"department": "Engineering",
+		"joiningDate": "2024-06-15",
+		"location": "Austin, TX, USA"
+	},
+	{
+		"id": "2",
+		"name": "Jesse Pinkman",
+		"designation": "UI/UX Designer",
+		"email": "jesse.pinkman@example.com",
+		"contact": "+1-555-234-5678",
+		"department": "Design",
+		"joiningDate": "2023-09-10",
+		"location": "San Diego, CA, USA"
+	},
+	{
+		"id": "3",
+		"name": "Skyler White",
+		"designation": "Backend Engineer",
+		"email": "skyler.white@example.com",
+		"contact": "+1-555-345-6789",
+		"department": "Engineering",
+		"joiningDate": "2022-03-21",
+		"location": "Denver, CO, USA"
+	},
+	{
+		"id": "4",
+		"name": "Hank Schrader",
+		"designation": "Product Manager",
+		"email": "hank.schrader@example.com",
+		"contact": "+1-555-456-7890",
+		"department": "Product",
+		"joiningDate": "2021-11-05",
+		"location": "Seattle, WA, USA"
+	},
+	{
+		"id": "5",
+		"name": "Saul Goodman",
+		"designation": "Data Analyst",
+		"email": "saul.goodman@example.com",
+		"contact": "+1-555-567-8901",
+		"department": "Data",
+		"joiningDate": "2023-01-17",
+		"location": "San Jose, CA, USA"
+	},
+	{
+		"id": "6",
+		"name": "Mike Ehrmantraut",
+		"designation": "QA Engineer",
+		"email": "mike.ehrmantraut@example.com",
+		"contact": "+1-555-678-9012",
+		"department": "Quality Assurance",
+		"joiningDate": "2022-08-29",
+		"location": "Chicago, IL, USA"
+	},
+	{
+		"id": "7",
+		"name": "Gus Fring",
+		"designation": "DevOps Engineer",
+		"email": "gus.fring@example.com",
+		"contact": "+1-555-789-0123",
+		"department": "Infrastructure",
+		"joiningDate": "2020-05-14",
+		"location": "Phoenix, AZ, USA"
+	},
+	{
+		"id": "8",
+		"name": "Marie Schrader",
+		"designation": "Scrum Master",
+		"email": "marie.schrader@example.com",
+		"contact": "+1-555-890-1234",
+		"department": "Agile Delivery",
+		"joiningDate": "2021-02-08",
+		"location": "New York, NY, USA"
+	},
+	{
+		"id": "9",
+		"name": "Lydia Rodarte-Quayle",
+		"designation": "Mobile App Developer",
+		"email": "lydia.rodarte-quayle@example.com",
+		"contact": "+1-555-901-2345",
+		"department": "Engineering",
+		"joiningDate": "2024-04-01",
+		"location": "Miami, FL, USA"
+	},
+	{
+		"id": "10",
+		"name": "Todd Alquist",
+		"designation": "HR Business Partner",
+		"email": "todd.alquist@example.com",
+		"contact": "+1-555-012-3456",
+		"department": "Human Resources",
+		"joiningDate": "2019-10-22",
+		"location": "Boston, MA, USA"
+	},
+	{
+		"id": "11",
+		"name": "john doe",
+		"designation": "it",
+		"email": "it@mail.com",
+		"contact": "1231232134",
+		"department": "it",
+		"joiningDate": "2025-12-30",
+		"location": "usa"
+	}
+]

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Dashboard</title>
+		<link
+			href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link rel="stylesheet" href="/stylesheet/normalize.css" />
+		<link rel="stylesheet" href="/stylesheet/skeleton.css" />
+		<link rel="stylesheet" href="/stylesheet/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="dashboard-header">
+				<h2>Employee Dashboard</h2>
+				<p>Welcome back, <b><%= name %></b>!</p>
+			</div>
+
+			<div class="section-header">
+				<div class="section-header-top">
+					<h4>Total Employees: <%= totalEmployees %></h4>
+					<button class="button-primary" id="addEmployeeBtn">
+						+ Add Employee
+					</button>
+				</div>
+
+				<!-- Add Employee Button -->
+				<div class="add-employee-section">
+					<!-- Add/Edit Employee Modal -->
+					<div id="employeeModal" class="modal">
+						<div class="modal-content">
+							<span class="close">&times;</span>
+							<h3 id="modalTitle">Add Employee</h3>
+							<form id="employeeForm">
+								<input type="hidden" id="employeeId" />
+								<div class="row">
+									<div class="six columns">
+										<label for="employeeName">Name</label>
+										<input
+											class="u-full-width"
+											type="text"
+											id="employeeName"
+											required
+										/>
+									</div>
+									<div class="six columns">
+										<label for="employeeDesignation"
+											>Designation</label
+										>
+										<input
+											class="u-full-width"
+											type="text"
+											id="employeeDesignation"
+											required
+										/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="six columns">
+										<label for="employeeEmail">Email</label>
+										<input
+											class="u-full-width"
+											type="email"
+											id="employeeEmail"
+											required
+										/>
+									</div>
+									<div class="six columns">
+										<label for="employeeContact"
+											>Contact</label
+										>
+										<input
+											class="u-full-width"
+											type="text"
+											id="employeeContact"
+											placeholder="+1-555-123-4567"
+										/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="six columns">
+										<label for="employeeDepartment"
+											>Department</label
+										>
+										<input
+											class="u-full-width"
+											type="text"
+											id="employeeDepartment"
+										/>
+									</div>
+									<div class="six columns">
+										<label for="employeeLocation"
+											>Location</label
+										>
+										<input
+											class="u-full-width"
+											type="text"
+											id="employeeLocation"
+										/>
+									</div>
+								</div>
+								<button type="submit" class="button-primary">
+									Save Employee
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card-grid">
+				<% employees.forEach(function(employee) { %>
+				<div
+					class="employee-card"
+					data-employee-id="<%= employee.id %>"
+				>
+					<h4><%= employee.name %></h4>
+					<!-- <div class="employee-id">ID: <%= employee.id %></div> -->
+					<div class="employee-info">
+						<strong>Designation:</strong><br />
+						<%= employee.designation %>
+					</div>
+					<div class="employee-info">
+						<strong>Email:</strong><br />
+						<%= employee.email %>
+					</div>
+					<div class="employee-info">
+						<strong>Contact:</strong><br />
+						<%= employee.contact %>
+					</div>
+					<div class="employee-info">
+						<strong>Department:</strong><br />
+						<%= employee.department %>
+					</div>
+					<div class="employee-info">
+						<strong>Joined:</strong><br />
+						<%= employee.joiningDate %>
+					</div>
+					<div class="employee-info">
+						<strong>Location:</strong><br />
+						<%= employee.location %>
+					</div>
+					<div class="card-actions">
+						<button
+							class="button button-edit"
+							data-action="edit"
+							data-id="<%= employee.id %>"
+							data-name="<%= employee.name %>"
+							data-designation="<%= employee.designation %>"
+							data-email="<%= employee.email %>"
+							data-contact="<%= employee.contact %>"
+							data-department="<%= employee.department %>"
+							data-location="<%= employee.location %>"
+						>
+							Edit
+						</button>
+						<button
+							class="button button-danger"
+							data-action="delete"
+							data-id="<%= employee.id %>"
+							data-name="<%= employee.name %>"
+						>
+							Delete
+						</button>
+					</div>
+				</div>
+				<% }); %>
+			</div>
+		</div>
+
+		<script>
+			// Modal functionality
+			const modal = document.getElementById('employeeModal');
+			const addBtn = document.getElementById('addEmployeeBtn');
+			const closeBtn = document.getElementsByClassName('close')[0];
+			const form = document.getElementById('employeeForm');
+
+			addBtn.onclick = function () {
+				document.getElementById('modalTitle').textContent =
+					'Add Employee';
+				form.reset();
+				document.getElementById('employeeId').value = '';
+				modal.style.display = 'block';
+			};
+
+			closeBtn.onclick = function () {
+				modal.style.display = 'none';
+			};
+
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = 'none';
+				}
+			};
+
+			// Create or update employee
+			form.onsubmit = function (e) {
+				e.preventDefault();
+				const id = document.getElementById('employeeId').value;
+				const data = {
+					name: document.getElementById('employeeName').value,
+					designation: document.getElementById('employeeDesignation')
+						.value,
+					email: document.getElementById('employeeEmail').value,
+					contact: document.getElementById('employeeContact').value,
+					department:
+						document.getElementById('employeeDepartment').value,
+					location: document.getElementById('employeeLocation').value,
+				};
+
+				const url = id ? `/api/employees/${id}` : '/api/employees';
+				const method = id ? 'PUT' : 'POST';
+
+				fetch(url, {
+					method: method,
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(data),
+				})
+					.then((response) => response.json())
+					.then((employee) => {
+						modal.style.display = 'none';
+
+						if (id) {
+							// Update existing card
+							updateEmployeeCard(employee);
+						} else {
+							// Add new card
+							addEmployeeCard(employee);
+							updateTotalCount();
+						}
+
+						form.reset();
+					})
+					.catch((error) => {
+						console.error('Error:', error);
+						alert('Failed to save employee');
+					});
+			};
+
+			// Event delegation for card actions
+			document
+				.querySelector('.card-grid')
+				.addEventListener('click', function (e) {
+					const button = e.target.closest('button[data-action]');
+					if (!button) return;
+
+					const action = button.dataset.action;
+					const id = button.dataset.id;
+
+					if (action === 'edit') {
+						editEmployee(
+							id,
+							button.dataset.name,
+							button.dataset.designation,
+							button.dataset.email,
+							button.dataset.contact,
+							button.dataset.department,
+							button.dataset.location,
+						);
+					} else if (action === 'delete') {
+						deleteEmployee(id, button.dataset.name);
+					}
+				});
+
+			// Edit employee function
+			function editEmployee(
+				id,
+				name,
+				designation,
+				email,
+				contact,
+				department,
+				location,
+			) {
+				document.getElementById('modalTitle').textContent =
+					'Edit Employee';
+				document.getElementById('employeeId').value = id;
+				document.getElementById('employeeName').value = name;
+				document.getElementById('employeeDesignation').value =
+					designation;
+				document.getElementById('employeeEmail').value = email;
+				document.getElementById('employeeContact').value = contact;
+				document.getElementById('employeeDepartment').value =
+					department;
+				document.getElementById('employeeLocation').value = location;
+				modal.style.display = 'block';
+			}
+
+			// Delete employee function
+			function deleteEmployee(id, name) {
+				if (confirm(`Are you sure you want to delete ${name}?`)) {
+					fetch(`/api/employees/${id}`, {
+						method: 'DELETE',
+					})
+						.then((response) => response.json())
+						.then(() => {
+							removeEmployeeCard(id);
+							updateTotalCount();
+						})
+						.catch((error) => {
+							console.error('Error:', error);
+							alert('Failed to delete employee');
+						});
+				}
+			}
+
+			// Helper function to create employee card HTML
+			function createEmployeeCardHTML(employee) {
+				return `
+					<div class="employee-card" data-employee-id="${employee.id}">
+						<h4>${employee.name}</h4>
+						<div class="employee-info">
+							<strong>Designation:</strong><br />
+							${employee.designation}
+						</div>
+						<div class="employee-info">
+							<strong>Email:</strong><br />
+							${employee.email}
+						</div>
+						<div class="employee-info">
+							<strong>Contact:</strong><br />
+							${employee.contact}
+						</div>
+						<div class="employee-info">
+							<strong>Department:</strong><br />
+							${employee.department}
+						</div>
+						<div class="employee-info">
+							<strong>Joined:</strong><br />
+							${employee.joiningDate || new Date().toISOString().split('T')[0]}
+						</div>
+						<div class="employee-info">
+							<strong>Location:</strong><br />
+							${employee.location}
+						</div>
+						<div class="card-actions">
+							<button
+								class="button button-edit"
+							data-action="edit"
+							data-id="${employee.id}"
+							data-name="${employee.name}"
+							data-designation="${employee.designation}"
+							data-email="${employee.email}"
+							data-contact="${employee.contact}"
+							data-department="${employee.department}"
+							data-location="${employee.location}">
+							Edit
+						</button>
+						<button
+							class="button button-danger"
+							data-action="delete"
+							data-id="${employee.id}"
+							data-name="${employee.name}">
+								Delete
+							</button>
+						</div>
+					</div>
+				`;
+			}
+
+			// Add new employee card to the grid
+			function addEmployeeCard(employee) {
+				const grid = document.querySelector('.card-grid');
+				const cardHTML = createEmployeeCardHTML(employee);
+				grid.insertAdjacentHTML('beforeend', cardHTML);
+			}
+
+			// Update existing employee card
+			function updateEmployeeCard(employee) {
+				const card = document.querySelector(
+					`[data-employee-id="${employee.id}"]`,
+				);
+				if (card) {
+					const cardHTML = createEmployeeCardHTML(employee);
+					card.outerHTML = cardHTML;
+				}
+			}
+
+			// Remove employee card from DOM
+			function removeEmployeeCard(id) {
+				const card = document.querySelector(
+					`[data-employee-id="${id}"]`,
+				);
+				if (card) {
+					card.remove();
+				}
+			}
+
+			// Update the total employee count
+			function updateTotalCount() {
+				const totalCards =
+					document.querySelectorAll('.employee-card').length;
+				const countElement = document.querySelector(
+					'.section-header-top h4',
+				);
+				if (countElement) {
+					countElement.textContent = `Total Employees: ${totalCards}`;
+				}
+			}
+		</script>
+	</body>
+</html>

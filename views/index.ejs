@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= title %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link
+			href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<link rel="stylesheet" href="/stylesheet/normalize.css" />
+		<link rel="stylesheet" href="/stylesheet/skeleton.css" />
+		<link rel="stylesheet" href="/stylesheet/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="page-header">
+				<h1><%= title %></h1>
+			</div>
+
+			<div class="table-container">
+				<% if (employees && employees.length > 0) { %>
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Designation</th>
+							<th>Email</th>
+							<th>Contact</th>
+							<th>Department</th>
+							<th>Joining Date</th>
+							<th>Location</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% employees.forEach(function(employee) { %>
+						<tr>
+							<td class="employee-id"><%= employee.id %></td>
+							<td><%= employee.name %></td>
+							<td><%= employee.designation %></td>
+							<td><%= employee.email %></td>
+							<td><%= employee.contact %></td>
+							<td><%= employee.department %></td>
+							<td><%= employee.joiningDate %></td>
+							<td><%= employee.location %></td>
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+				<% } else { %>
+				<div class="no-data">
+					<p>No employee records found.</p>
+				</div>
+				<% } %>
+			</div>
+		</div>
+	</body>
+</html>
