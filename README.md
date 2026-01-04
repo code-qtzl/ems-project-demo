@@ -1,5 +1,9 @@
 # Employee Management System (EMS)
 
+<div align="left">
+  <img src="screenshots/ems-screenshot.png" alt="Employee Management System (EMS)" width="300"/>
+</div>
+
 ## Project Overview
 
 This project aims to showcase design, implement, and testing of a full-stack Employee Management System (EMS). The EMS will simulate real-world backend development tasks by incorporating route management, file handling, middleware integration, view rendering using EJS, and automated end-to-end testing with Cypress. The goal is to build a testable, modular, and maintainable system using industry-standard tools.
